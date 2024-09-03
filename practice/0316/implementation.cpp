@@ -1,0 +1,176 @@
+#include<iostream>
+#include<cstring>
+#include<string>
+#include"TIME.h"
+using namespace std;
+void TIME::settime(int hour,int minute,int second)
+{
+    if(hour%12<10)
+    {
+        if(hour>=12)
+        {
+            this->part="PM";
+        }
+        else
+        {
+            this->part="AM";
+        }
+        this->hour="0";
+        this->hour.append(to_string(hour%12));
+    }
+    else
+    {
+        if(hour>=12)
+        {
+            this->part="PM";
+        }
+        else
+        {
+            this->part="AM";
+        }
+        this->hour=to_string(hour%12);
+    }
+    if(minute<10)
+    {
+        this->minute="0";
+        this->minute.append(to_string(minute));
+    }
+    else
+    {
+        this->minute=to_string(minute);
+    }
+    if(second<10)
+    {
+        this->second="0";
+        this->second.append(to_string(second));
+    }
+    else
+    {
+        this->second=to_string(second);
+    }
+}
+void TIME::settime(int second)
+{
+    if(second<10)
+    {
+        this->second="0";
+        this->second.append(to_string(second));
+        this->hour="00";
+        this->minute="00";
+    }
+    else if(second<60)
+    {
+
+        this->hour="00";
+        this->minute="00";
+        this->second=to_string(second);
+    }
+    else if((second/60)<10)
+    {
+        this->hour="00";
+        this->minute="0";
+        this->minute.append(to_string(second/60));
+        if(second%60<10)
+        {
+            this->second="0";
+            this->second.append(to_string(second%60));
+        }
+        else
+        {
+            this->second=to_string(second%60);
+        }
+    }
+    else if((second/60)>10&&(second/60)<60)
+    {
+        this->hour="00";
+        this->minute=to_string(second/60);
+        if(second%60<10)
+        {
+            this->second="0";
+            this->second.append(to_string(second%60));
+        }
+        else
+        {
+            this->second=to_string(second%60);
+        }
+    }
+    else if(second/60>60)
+    {
+       if((second/60)/60<10)
+       {
+           this->hour="0";
+           this->hour.append(to_string((second/60)/60));
+           if((second/60)%60<10)
+           {
+               this->minute="0";
+               this->minute.append(to_string((second/60)%60));
+               if((second%60)<10)
+               {
+                   this->second="0";
+                   this->second.append(to_string(second%60));
+               }
+               else
+               {
+                   this->second=to_string(second%60);
+               }
+           }
+           else
+           {
+               this->minute=to_string((second/60)%60);
+               if((second%60)<10)
+               {
+                   this->second="0";
+                   this->second.append(to_string(second%60));
+               }
+               else
+               {
+                   this->second=to_string(second%60);
+               }
+           }
+       }
+       else
+       {
+           this->hour=to_string((second/60)/60);
+           if((second/60)%60<10)
+           {
+               this->minute="0";
+               this->minute.append(to_string((second/60)%60));
+               if((second%60)<10)
+               {
+                   this->second="0";
+                   this->second.append(to_string(second%60));
+               }
+               else
+               {
+                   this->second=to_string(second%60);
+               }
+           }
+           else
+           {
+               this->minute=to_string((second/60)%60);
+               if((second%60)<10)
+               {
+                   this->second="0";
+                   this->second.append(to_string(second%60));
+               }
+               else
+               {
+                   this->second=to_string(second%60);
+               }
+           }
+       }
+    }
+    this->part="已經過時間";
+}
+TIME::TIME(int hour,int minute,int second)
+{
+    settime(hour,minute,second);
+}
+TIME::TIME(int second)
+{
+    settime(second);
+}
+void TIME::showtime()
+{
+    cout<<this->hour<<":"<<this->minute<<":"<<this->second<<" "<<this->part<<endl;
+}
